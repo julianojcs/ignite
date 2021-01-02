@@ -1,5 +1,6 @@
+import * as types from './ActionTypes'
 import axios from 'axios'
-import { popularGamesURL } from '../api'
+import { popularGamesURL, upcomingGamesURL, newGamesURL } from '../api'
 
 //Action Creator
 // export const loadGames = () => (dispatch) => {
@@ -9,7 +10,7 @@ import { popularGamesURL } from '../api'
 //     dispatch({
 //       type: 'FETCH_GAMES',
 //       payload: {
-//         popular: data
+//         popular: data.data.results
 //       }
 //     })
 //   })
@@ -18,10 +19,14 @@ import { popularGamesURL } from '../api'
 export const loadGames = () => async (dispatch) => {
   //FETCH AXIOS
   const popuparData = await axios.get(popularGamesURL())
+  const newGamesData = await axios.get(newGamesURL())
+  const upcomingData = await axios.get(upcomingGamesURL())
   dispatch({
-    type: 'FETCH_GAMES',
+    type: types.FETCH_GAMES,
     payload: {
-      popular: popuparData.data.results
+      popular: popuparData.data.results,
+      upcoming: upcomingData.data.results,
+      newGames: newGamesData.data.results
     }
   })
 }

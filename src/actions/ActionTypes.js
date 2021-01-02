@@ -1,0 +1,3 @@
+const FETCH_GAMES = 'FETCH_GAMES'
+
+export { FETCH_GAMES }
