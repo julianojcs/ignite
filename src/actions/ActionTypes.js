@@ -1,3 +1,4 @@
 const FETCH_GAMES = 'FETCH_GAMES'
+const GET_DETAIL = 'GET_DETAIL'
 
-export { FETCH_GAMES }
+export { FETCH_GAMES, GET_DETAIL }
