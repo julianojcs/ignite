@@ -9,17 +9,18 @@ import { gameDetailsURL, gameScreenshotURL } from '../api'
 const GameDetail = ({id}) => {
   const [gameDetail, setGameDetail] = useState({
     game: {},
-    screen: {}
+    screen: {},
+    isLoading: true
   })
 
   const loadDetail = async (id) => {
     const detailData = await axios.get(gameDetailsURL(id))
     const screenShotData = await axios.get(gameScreenshotURL(id))
     setGameDetail({
-        game: detailData.data,
-        screen: screenShotData.data
-      }
-    )
+      game: detailData.data,
+      screen: screenShotData.data,
+      isLoading: false
+    })
   }
   useEffect(() => {
     if (id) loadDetail(id)
@@ -30,39 +31,43 @@ const GameDetail = ({id}) => {
   return (
     id 
     ?
-      <CardShadow>
-      <Detail>
-        <Stats>
-          <div className='rating'>
-            <h3>{gameDetail.game.name}</h3>
-            <p>Rating: {gameDetail.game.rating}</p>
-          </div>
-          <Info>
-            <h3>Platforns</h3>
-            <Platforms>
-              {gameDetail.game.platforms?.map((data) => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
-              ))}
-            </Platforms>
-          </Info>
-        </Stats>
-        <Media>
-          <img src={gameDetail.game.background_image} alt='Game screenshots background' />
-        </Media>
-        <Description>
-          <p>{gameDetail.game.description_raw}</p>
-        </Description>
-        <div className='gallery'>
-          {gameDetail.screen.results?.map((screen) => (
-            <img
-              src={screen.image}
-              key={screen.id}
-              alt='Gallery screenshots images'
-            />
-          ))}
-        </div>
-      </Detail>
-    </CardShadow>
+      <>
+        {!gameDetail.isLoading && (
+          <CardShadow>
+            <Detail>
+              <Stats>
+                <div className='rating'>
+                  <h3>{gameDetail.game.name}</h3>
+                  <p>Rating: {gameDetail.game.rating}</p>
+                </div>
+                <Info>
+                  <h3>Platforns</h3>
+                  <Platforms>
+                    {gameDetail.game.platforms?.map((data) => (
+                      <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    ))}
+                  </Platforms>
+                </Info>
+              </Stats>
+              <Media>
+                <img src={gameDetail.game.background_image} alt='Game screenshots background' />
+              </Media>
+              <Description>
+                <p>{gameDetail.game.description_raw}</p>
+              </Description>
+              <div className='gallery'>
+                {gameDetail.screen.results?.map((screen) => (
+                  <img
+                    src={screen.image}
+                    key={screen.id}
+                    alt='Gallery screenshots images'
+                  />
+                ))}
+              </div>
+            </Detail>
+          </CardShadow>
+        )}
+      </>
     : null
   )
 }
