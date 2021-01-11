@@ -1,37 +1,59 @@
 //Styling and Animation
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-//Redux
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { gameDetailsURL, gameScreenshotURL } from '../api'
 
-const GameDetail = () => {
+const GameDetail = ({id}) => {
+  const [gameDetail, setGameDetail] = useState({
+    game: {},
+    screen: {}
+  })
+
+  const loadDetail = async (id) => {
+    const detailData = await axios.get(gameDetailsURL(id))
+    const screenShotData = await axios.get(gameScreenshotURL(id))
+    setGameDetail({
+        game: detailData.data,
+        screen: screenShotData.data
+      }
+    )
+  }
+  useEffect(() => {
+    if (id) loadDetail(id)
+  }, [id])
+
   //Data
-  const { screen, game } = useSelector((state) => state.detail)
+  //const { screen, game } = useSelector((state) => state.detail)
   return (
-    <CardShadow>
+    id 
+    ?
+      <CardShadow>
       <Detail>
         <Stats>
           <div className='rating'>
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
+            <h3>{gameDetail.game.name}</h3>
+            <p>Rating: {gameDetail.game.rating}</p>
           </div>
           <Info>
             <h3>Platforns</h3>
             <Platforms>
-              {game.platforms.map((data) => (
+              {gameDetail.game.platforms?.map((data) => (
                 <h3 key={data.platform.id}>{data.platform.name}</h3>
               ))}
             </Platforms>
           </Info>
         </Stats>
         <Media>
-          <img src={game.background_image} alt='Game screenshots background' />
+          <img src={gameDetail.game.background_image} alt='Game screenshots background' />
         </Media>
         <Description>
-          <p>{game.description_raw}</p>
+          <p>{gameDetail.game.description_raw}</p>
         </Description>
         <div className='gallery'>
-          {screen.results.map((screen) => (
+          {gameDetail.screen.results?.map((screen) => (
             <img
               src={screen.image}
               key={screen.id}
@@ -41,6 +63,7 @@ const GameDetail = () => {
         </div>
       </Detail>
     </CardShadow>
+    : null
   )
 }
 
