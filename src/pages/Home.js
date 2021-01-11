@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import GameDetail from '../components/GameDetail'
 //Redux
 import { useDispatch, useSelector } from 'react-redux'
 import { loadGames } from '../actions/gamesAction'
@@ -10,6 +11,7 @@ import { motion } from 'framer-motion'
 const Home = () => {
   //FETCH GAMES
   const dispatch = useDispatch()
+
   useEffect(() => {
     dispatch(loadGames())
   }, [dispatch])
@@ -17,10 +19,14 @@ const Home = () => {
   const { popular, newGames, upcoming, searched } = useSelector(
     (state) => state.games
   )
-  console.log(popular)
-
+  
+  const gameDetail = useSelector(
+    (state) => state.detail.game.name
+  )
+console.log(gameDetail);
   return (
     <GameList>
+      {gameDetail && <GameDetail />}
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map((game) => (
