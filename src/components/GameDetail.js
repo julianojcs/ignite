@@ -8,12 +8,15 @@ import axios from 'axios'
 import { gameDetailsURL, gameScreenshotURL } from '../api'
 import { smallImage } from '../util'
 //IMAGES
-import playstation from "../img/playstation.svg";
-import steam from "../img/steam.svg";
-import xbox from "../img/xbox.svg";
-import nintendo from "../img/nintendo.svg";
-import apple from "../img/apple.svg";
-import gamepad from "../img/gamepad.svg";
+import playstation from '../img/playstation.svg'
+import steam from '../img/steam.svg'
+import xbox from '../img/xbox.svg'
+import nintendo from '../img/nintendo.svg'
+import apple from '../img/apple.svg'
+import gamepad from '../img/gamepad.svg'
+//Star Images
+import starEmpty from '../img/star-empty.png'
+import starFull from '../img/star-full.png'
 
 const GameDetail = ({id}) => {
   const history = useHistory()
@@ -31,6 +34,20 @@ const GameDetail = ({id}) => {
       document.body.style.overflow = 'auto'
       history.push('/')
     }
+  }
+
+  //Get Stars
+  const getStars = () => {
+    const stars = []
+    const rating = Math.floor(gameDetail.game.rating)
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img alt='Star Full' key={i} src={starFull}></img>)
+      } else {
+        stars.push(<img alt='Star Empty' key={i} src={starEmpty}></img>)
+      }
+    }
+    return stars
   }
 
   //GET PLATFORM IMAGES
@@ -77,6 +94,7 @@ const GameDetail = ({id}) => {
                   {gameDetail.game.name}
                 </motion.h3>
                 <p>Rating: {gameDetail.game.rating}</p>
+                {getStars()}
               </div>
               <Info>
                 <h3>Platforns</h3>
