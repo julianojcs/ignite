@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { gameDetailsURL, gameScreenshotURL } from '../api'
+import { smallImage } from '../util'
 
 const GameDetail = ({id}) => {
   const history = useHistory()
@@ -40,48 +41,48 @@ const GameDetail = ({id}) => {
 
   //Data
   //const { screen, game } = useSelector((state) => state.detail)
-  return (
-    id 
-    ?
-      <>
-        {!gameDetail.isLoading && (
-          <CardShadow className="shadow" onClick={exitDetailHander}>
-            <Detail>
-              <Stats>
-                <div className='rating'>
-                  <h3>{gameDetail.game.name}</h3>
-                  <p>Rating: {gameDetail.game.rating}</p>
-                </div>
-                <Info>
-                  <h3>Platforns</h3>
-                  <Platforms>
-                    {gameDetail.game.platforms?.map((data) => (
-                      <h3 key={data.platform.id}>{data.platform.name}</h3>
-                    ))}
-                  </Platforms>
-                </Info>
-              </Stats>
-              <Media>
-                <img src={gameDetail.game.background_image} alt='Game screenshots background' />
-              </Media>
-              <Description>
-                <p>{gameDetail.game.description_raw}</p>
-              </Description>
-              <div className='gallery'>
-                {gameDetail.screen.results?.map((screen) => (
-                  <img
-                    src={screen.image}
-                    key={screen.id}
-                    alt='Gallery screenshots images'
-                  />
-                ))}
+  return id ? (
+    <>
+      {!gameDetail.isLoading && (
+        <CardShadow className='shadow' onClick={exitDetailHander}>
+          <Detail>
+            <Stats>
+              <div className='rating'>
+                <h3>{gameDetail.game.name}</h3>
+                <p>Rating: {gameDetail.game.rating}</p>
               </div>
-            </Detail>
-          </CardShadow>
-        )}
-      </>
-    : null
-  )
+              <Info>
+                <h3>Platforns</h3>
+                <Platforms>
+                  {gameDetail.game.platforms?.map((data) => (
+                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                  ))}
+                </Platforms>
+              </Info>
+            </Stats>
+            <Media>
+              <img
+                src={smallImage(gameDetail.game.background_image, 1280)}
+                alt='Game screenshots background'
+              />
+            </Media>
+            <Description>
+              <p>{gameDetail.game.description_raw}</p>
+            </Description>
+            <div className='gallery'>
+              {gameDetail.screen.results?.map((screen) => (
+                <img
+                  src={smallImage(screen.image, 1280)}
+                  key={screen.id}
+                  alt='Gallery screenshots images'
+                />
+              ))}
+            </div>
+          </Detail>
+        </CardShadow>
+      )}
+    </>
+  ) : null
 }
 
 const CardShadow = styled(motion.div)`
