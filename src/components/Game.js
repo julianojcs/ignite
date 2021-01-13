@@ -16,13 +16,15 @@ const Game = ({ name, released, image, id }) => {
   };
 
   return (
-    <StyledGame onClick={loadDetailHandler}>
+    <StyledGame layoutId={id.toString()} onClick={loadDetailHandler}>
       <Link to={`/game/${id}`}>
-        <h3>{name}</h3>
+        <motion.h3 layoutId={`title_${id.toString()}`}>{name}</motion.h3>
         <p>{released}</p>
-        <img
+        <motion.img
+          layoutId={`image_${id.toString()}`}
           src={smallImage(image, 640)}
           alt={'Image thumb for "' + name + '".'}
+          loading='lazy'
         />
       </Link>
     </StyledGame>

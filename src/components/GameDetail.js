@@ -45,10 +45,12 @@ const GameDetail = ({id}) => {
     <>
       {!gameDetail.isLoading && (
         <CardShadow className='shadow' onClick={exitDetailHander}>
-          <Detail>
+          <Detail layoutId={id}>
             <Stats>
               <div className='rating'>
-                <h3>{gameDetail.game.name}</h3>
+                <motion.h3 layoutId={`title_${id}`}>
+                  {gameDetail.game.name}
+                </motion.h3>
                 <p>Rating: {gameDetail.game.rating}</p>
               </div>
               <Info>
@@ -61,9 +63,11 @@ const GameDetail = ({id}) => {
               </Info>
             </Stats>
             <Media>
-              <img
-                src={smallImage(gameDetail.game.background_image, 1280)}
+              <motion.img
+                layoutId={`image_${id}`}
+                src={smallImage(gameDetail.game.background_image, 640)}
                 alt='Game screenshots background'
+                loading='lazy'
               />
             </Media>
             <Description>
@@ -72,9 +76,10 @@ const GameDetail = ({id}) => {
             <div className='gallery'>
               {gameDetail.screen.results?.map((screen) => (
                 <img
-                  src={smallImage(screen.image, 1280)}
+                  src={smallImage(screen.image, 640)}
                   key={screen.id}
                   alt='Gallery screenshots images'
+                  loading='lazy'
                 />
               ))}
             </div>
