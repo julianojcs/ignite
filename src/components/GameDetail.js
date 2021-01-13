@@ -3,15 +3,27 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 // import { useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { gameDetailsURL, gameScreenshotURL } from '../api'
 
 const GameDetail = ({id}) => {
+  const history = useHistory()
+
   const [gameDetail, setGameDetail] = useState({
     game: {},
     screen: {},
     isLoading: true
   })
+
+  //Exit Detail
+  const exitDetailHander = (e) => {
+    const element = e.target;
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto"
+      history.push("/");
+    }
+  }
 
   const loadDetail = async (id) => {
     const detailData = await axios.get(gameDetailsURL(id))
@@ -33,7 +45,7 @@ const GameDetail = ({id}) => {
     ?
       <>
         {!gameDetail.isLoading && (
-          <CardShadow>
+          <CardShadow className="shadow" onClick={exitDetailHander}>
             <Detail>
               <Stats>
                 <div className='rating'>

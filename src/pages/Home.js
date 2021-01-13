@@ -8,7 +8,7 @@ import Game from '../components/Game'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 //Router
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 const Home = () => {
   //get the current Location
@@ -21,13 +21,19 @@ const Home = () => {
     dispatch(loadGames())
   }, [dispatch])
 
+  useEffect(() => {
+    id
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'auto')
+  }, [id])
+
   const { popular, newGames, upcoming, searched } = useSelector(
     (state) => state.games
   )
 
   return (
     <GameList>
-      {id && <GameDetail id={id}/>}
+      {id && <GameDetail id={id} />}
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map((game) => (

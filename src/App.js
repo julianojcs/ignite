@@ -7,7 +7,6 @@ function App() {
     <div className='App'>
       <GlobalStyles />
       <Route path={['games/:id', '/']} component={Home} />
-      <Home />
     </div>
   )
 }
