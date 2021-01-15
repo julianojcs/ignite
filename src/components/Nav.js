@@ -4,10 +4,10 @@ import * as types from '../actions/ActionTypes'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 import logo from '../img/logo.svg'
+import { fadeIn } from '../animations'
 //Redux and Routes
 import { fetchSearch } from '../actions/gamesAction'
 import { useDispatch } from 'react-redux'
-// import { fadeIn } from '../animations'
 
 const Nav = () => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const Nav = () => {
     dispatch({ type: types.CLEAR_SEARCHED })
   }  
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial='hidden' animate='show'>
       <Logo onClick={clearSearched}>
         <img src={logo} alt='logo' />
         <h1>Ignite</h1>
