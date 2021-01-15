@@ -97,7 +97,7 @@ const GameDetail = ({id}) => {
                 {getStars()}
               </div>
               <Info>
-                <h3>Platforns</h3>
+                <h3>Platforns:</h3>
                 <Platforms>
                   {gameDetail.game.platforms?.map((data) => (
                     <img
@@ -162,12 +162,19 @@ const CardShadow = styled(motion.div)`
 `
 
 const Detail = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    left: 5%;
+    top: 1rem;
+    padding: 0rem !important;
+  }
   width: 80%;
   border-radius: 1rem;
   padding: 2rem 5rem;
   background: white;
   position: absolute;
   left: 10%;
+  top: 10%;
   color: black;
   z-index: 10;
   img {
@@ -176,6 +183,20 @@ const Detail = styled(motion.div)`
 `
 
 const Stats = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 0;
+    .rating {
+      text-align: center;
+      h3 {
+        font-size: 1.5rem;
+      }
+      img {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -186,9 +207,23 @@ const Stats = styled(motion.div)`
   }
 `
 const Info = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    font-size: 1rem !important;
+    h3 {
+      padding: 1rem 0rem 0.5rem 0rem !important;
+    }
+  }
   text-align: center;
 `
 const Platforms = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    padding: 0rem !important;
+    img {
+      margin: 0rem 0.5rem !important;
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+    }
+  }
   display: flex;
   justify-content: space-evenly;
   img {
@@ -196,12 +231,18 @@ const Platforms = styled(motion.div)`
   }
 `
 const Media = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    margin-top: 2rem;
+  }
   margin-top: 5rem;
   img {
     width: 100%;
   }
 `
 const Description = styled(motion.div)`
+  @media screen and (max-width: 768px) {
+    margin: 2rem 0rem;
+  }
   margin: 5rem 0rem;
 `
 

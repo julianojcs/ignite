@@ -1,6 +1,42 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
+  @media screen and (max-width: 768px){
+    body{
+      width: 95%;
+    }
+    .App {
+      nav{
+        padding: 2rem 1rem 0rem 1rem;
+        div{
+        }
+        form{
+          padding: 2rem 0rem 0rem 0rem;
+          margin: 0rem 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          input{
+            width: 100%;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+          }
+          button{
+            width: 10rem;
+            font-size: 1.5rem;
+          }
+        }
+      }
+      div{
+        padding: 0rem 1rem;
+        h2{
+          font-size: 2rem;
+          padding: 3rem 1rem 2rem 1rem;
+        }
+      }
+    }
+  }
+  
   *{
     margin: 0;
     padding:0;

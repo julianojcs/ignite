@@ -37,7 +37,7 @@ const Home = () => {
       <AnimateSharedLayout type='crossfade'>
         <AnimatePresence>{id && <GameDetail id={id} />}</AnimatePresence>
         {Boolean(searched.length) && (
-          <div className='searched'>
+          <>
             <h2>Searched Games</h2>
             <Games>
               {searched.map((game) => (
@@ -50,7 +50,7 @@ const Home = () => {
                 />
               ))}
             </Games>
-          </div>
+          </>
         )}
         <h2>Upcoming Games</h2>
         <Games>
@@ -102,7 +102,7 @@ const GameList = styled(motion.div)`
 const Games = styled(motion.div)`
   min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
 `
